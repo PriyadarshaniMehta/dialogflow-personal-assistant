@@ -1,9 +1,33 @@
+import os
+import requests
+from flask import Flask, request, jsonify
+from datetime import datetime
+import pytz
+
+from flask_cors import CORS
+
+app = Flask(__name__)
+CORS(app)
+
+TASKS = []
+NEWSDATA_API_KEY = os.getenv("NEWSDATA_API_KEY")
+
+
+@app.route("/", methods=["GET"])
+def home():
+    return "Webhook is running!"
+
+
 @app.route("/webhook", methods=["POST"])
 def webhook():
     data = request.get_json(silent=True, force=True)
-    user_message = data.get("query", "").lower() or data.get("queryResult", {}).get("queryText", "").lower()
 
-    # Weather
+    user_message = (
+        data.get("query", "").lower()
+        or data.get("queryResult", {}).get("queryText", "").lower()
+    )
+
+    #  Weather
     if "weather" in user_message or "temperature" in user_message:
         try:
             url = "https://api.open-meteo.com/v1/forecast?latitude=28.625&longitude=77.25&current_weather=true"
@@ -19,7 +43,7 @@ def webhook():
             return jsonify({"fulfillmentText": f"Weather API error: {str(e)}"})
 
 
-    # Time
+    #  Time
     if "time" in user_message or "clock" in user_message:
         try:
             ist = pytz.timezone("Asia/Kolkata")
@@ -30,9 +54,14 @@ def webhook():
             return jsonify({"fulfillmentText": f"Time error: {str(e)}"})
 
 
-    #  Task Creation
+    # Task Creation
     if "add task" in user_message or "create task" in user_message or "remind me" in user_message:
-        task_text = user_message.replace("add task", "").replace("create task", "").replace("remind me", "").strip()
+        task_text = (
+            user_message.replace("add task", "")
+            .replace("create task", "")
+            .replace("remind me", "")
+            .strip()
+        )
         TASKS.append({"task": task_text})
         return jsonify({"fulfillmentText": f"Task added: {task_text}"})
 
@@ -49,12 +78,12 @@ def webhook():
         return jsonify({"fulfillmentText": reply})
 
 
-    #  Task Delete
+    # Task Delete
     if "delete task" in user_message:
         try:
             num = int(user_message.split()[-1])
             removed = TASKS.pop(num - 1)
-            return jsonify({"fulfillmentText": f"Task deleted: {removed['task']}"})
+            return jsonify({"fulfillmentText": f"Task deleted: {removed['task']}"} )
         except:
             return jsonify({"fulfillmentText": "Invalid task number to delete."})
 
@@ -77,3 +106,8 @@ def webhook():
 
     #  Fallback
     return jsonify({"fulfillmentText": "I'm here to help!"})
+
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000)
+
