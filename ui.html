@@ -57,94 +57,82 @@
             align-items: center;
         }
 
-        .sakura-robot-logo {
-            width: 60px;
-            height: 60px;
+        .sakura-logo {
+            width: 70px;
+            height: 70px;
             position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
+            animation: float 3s ease-in-out infinite;
         }
 
-        .robot-face {
-            width: 45px;
-            height: 45px;
-            background: linear-gradient(135deg, #e0e0e0, #f5f5f5);
-            border-radius: 10px;
-            position: relative;
-            box-shadow: 
-                0 4px 8px rgba(0, 0, 0, 0.2),
-                inset 2px 2px 4px rgba(255, 255, 255, 0.8),
-                inset -2px -2px 4px rgba(0, 0, 0, 0.1);
-            border: 2px solid #d0d0d0;
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
         }
 
-        .robot-eyes {
-            position: absolute;
-            top: 12px;
-            left: 0;
-            right: 0;
-            display: flex;
-            justify-content: space-around;
-        }
-
-        .eye {
-            width: 6px;
-            height: 6px;
-            background: #4a90e2;
+        .sakura-center {
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(135deg, #ffd700, #ffec8b);
             border-radius: 50%;
-            box-shadow: 0 0 4px #4a90e2;
-            animation: blink 3s infinite;
-        }
-
-        @keyframes blink {
-            0%, 90%, 100% { transform: scaleY(1); }
-            95% { transform: scaleY(0.1); }
-        }
-
-        .robot-mouth {
             position: absolute;
-            bottom: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 16px;
-            height: 3px;
-            background: #666;
-            border-radius: 2px;
+            z-index: 2;
+            box-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
         }
 
         .sakura-petals {
             position: absolute;
-            top: -5px;
-            left: -5px;
-            right: -5px;
-            bottom: -5px;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
             pointer-events: none;
         }
 
         .petal {
             position: absolute;
-            width: 10px;
-            height: 10px;
+            width: 25px;
+            height: 25px;
             background: #e6e6fa; /* Lavender color */
             border-radius: 50% 0 50% 50%;
-            transform: rotate(45deg);
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transform-origin: center;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
-        .petal:nth-child(1) { top: 0; left: 50%; transform: translateX(-50%) rotate(45deg); }
-        .petal:nth-child(2) { top: 50%; right: 0; transform: translateY(-50%) rotate(135deg); }
-        .petal:nth-child(3) { bottom: 0; left: 50%; transform: translateX(-50%) rotate(225deg); }
-        .petal:nth-child(4) { top: 50%; left: 0; transform: translateY(-50%) rotate(315deg); }
-        .petal:nth-child(5) { top: 15%; right: 15%; transform: rotate(90deg); }
-        .petal:nth-child(6) { bottom: 15%; right: 15%; transform: rotate(180deg); }
-        .petal:nth-child(7) { bottom: 15%; left: 15%; transform: rotate(270deg); }
-        .petal:nth-child(8) { top: 15%; left: 15%; transform: rotate(0deg); }
+        /* Position 5 petals in a circle */
+        .petal:nth-child(1) { 
+            top: 5px; 
+            left: 22.5px; 
+            transform: rotate(0deg); 
+        }
+        .petal:nth-child(2) { 
+            top: 22.5px; 
+            right: 5px; 
+            transform: rotate(72deg); 
+        }
+        .petal:nth-child(3) { 
+            bottom: 5px; 
+            right: 22.5px; 
+            transform: rotate(144deg); 
+        }
+        .petal:nth-child(4) { 
+            bottom: 22.5px; 
+            left: 5px; 
+            transform: rotate(216deg); 
+        }
+        .petal:nth-child(5) { 
+            top: 22.5px; 
+            left: 5px; 
+            transform: rotate(288deg); 
+        }
 
         .logo-text {
-            font-size: 11px;
+            font-size: 12px;
             font-weight: 700;
-            margin-top: 6px;
+            margin-top: 8px;
             color: rgba(255, 255, 255, 0.9);
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
             letter-spacing: 0.5px;
@@ -345,7 +333,7 @@
             }
         }
 
-        /* Scrollbar styling */
+        
         .chat-messages::-webkit-scrollbar {
             width: 6px;
         }
@@ -385,14 +373,19 @@
                 font-size: 28px;
             }
             
-            .sakura-robot-logo {
-                width: 50px;
-                height: 50px;
+            .sakura-logo {
+                width: 60px;
+                height: 60px;
             }
             
-            .robot-face {
-                width: 40px;
-                height: 40px;
+            .petal {
+                width: 22px;
+                height: 22px;
+            }
+            
+            .sakura-center {
+                width: 18px;
+                height: 18px;
             }
             
             .message {
@@ -434,14 +427,19 @@
                 font-size: 14px;
             }
             
-            .sakura-robot-logo {
-                width: 45px;
-                height: 45px;
+            .sakura-logo {
+                width: 50px;
+                height: 50px;
             }
             
-            .robot-face {
-                width: 35px;
-                height: 35px;
+            .petal {
+                width: 18px;
+                height: 18px;
+            }
+            
+            .sakura-center {
+                width: 15px;
+                height: 15px;
             }
             
             .message {
@@ -473,7 +471,7 @@
             margin: 4px 0;
         }
 
-        /* Ensure proper scrolling behavior */
+        
         .chat-messages {
             scroll-behavior: smooth;
         }
@@ -484,18 +482,9 @@
     <div class="chat-header">
         <div class="header-content">
             <div class="logo-container">
-                <div class="sakura-robot-logo">
-                    <div class="robot-face">
-                        <div class="robot-eyes">
-                            <div class="eye"></div>
-                            <div class="eye"></div>
-                        </div>
-                        <div class="robot-mouth"></div>
-                    </div>
+                <div class="sakura-logo">
+                    <div class="sakura-center"></div>
                     <div class="sakura-petals">
-                        <div class="petal"></div>
-                        <div class="petal"></div>
-                        <div class="petal"></div>
                         <div class="petal"></div>
                         <div class="petal"></div>
                         <div class="petal"></div>
@@ -512,7 +501,7 @@
         </div>
     </div>
 
-    <!-- Scrollable Content -->
+    
     <div class="main-content">
         <div class="chat-container">
             <div class="chat-messages" id="chatbox">
@@ -528,55 +517,6 @@
                         <div>💬 General conversation</div>
                     </div>
                     <br>Feel free to ask me anything or just say hello!
-                </div>
-                <!-- Demo messages to show scrolling -->
-                <div class="message user">
-                    Hi Persona! Can you tell me about yourself?
-                </div>
-                <div class="message bot">
-                    I'm Persona, your AI assistant! I was created to help you with various tasks like checking weather, managing tasks, telling jokes, and much more. I'm here to make your day easier and more enjoyable!
-                </div>
-                <div class="message user">
-                    That sounds great! What's the weather like today?
-                </div>
-                <div class="message bot">
-                    Let me check the current weather for you. The current temperature is 22°C with wind speed 15 km/h. It's a beautiful day outside!
-                </div>
-                <div class="message user">
-                    Can you tell me a joke?
-                </div>
-                <div class="message bot">
-                    Why don't scientists trust atoms? Because they make up everything!
-                </div>
-                <div class="message user">
-                    What time is it?
-                </div>
-                <div class="message bot">
-                    The current time is 2:30 PM. Perfect time for a coffee break!
-                </div>
-                <div class="message user">
-                    Can you help me add a task to my list?
-                </div>
-                <div class="message bot">
-                    Sure! Just tell me what task you'd like to add and I'll remember it for you.
-                </div>
-                <div class="message user">
-                    How about "Buy groceries"?
-                </div>
-                <div class="message bot">
-                    Task added: Buy groceries
-                </div>
-                <div class="message user">
-                    What else can you do?
-                </div>
-                <div class="message bot">
-                    I can also help you with news updates, time conversions, setting reminders, and having general conversations. I'm constantly learning new things!
-                </div>
-                <div class="message user">
-                    That's impressive! Tell me more about your capabilities.
-                </div>
-                <div class="message bot">
-                    I specialize in natural language processing and can understand context quite well. Whether you need practical assistance or just want to chat, I'm here for you 24/7!
                 </div>
             </div>
             <div class="typing-indicator" id="typingIndicator">
@@ -598,7 +538,7 @@
     <script>
         console.log("Persona chat interface loaded");
 
-        // Wait for DOM to be fully loaded
+        
         document.addEventListener('DOMContentLoaded', function() {
             console.log("DOM fully loaded");
             
@@ -612,7 +552,7 @@
                 return;
             }
 
-            // Auto-scroll to bottom on load
+           
             setTimeout(() => {
                 chatbox.scrollTop = chatbox.scrollHeight;
             }, 100);
@@ -623,21 +563,21 @@
                 
                 if (text === "") return;
 
-                // Add user message to chat
+                
                 const userMessage = document.createElement('div');
                 userMessage.className = 'message user';
                 userMessage.textContent = text;
                 chatbox.appendChild(userMessage);
                 
-                // Clear input and scroll
+                
                 input.value = "";
                 chatbox.scrollTop = chatbox.scrollHeight;
                 
-                // Show typing indicator
+                
                 typingIndicator.style.display = 'block';
                 chatbox.scrollTop = chatbox.scrollHeight;
 
-                // Send request to Flask backend
+                
                 fetch("/webhook", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
