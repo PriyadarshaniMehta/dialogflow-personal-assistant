@@ -13,7 +13,7 @@
         }
 
         body {
-            background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+            background: linear-gradient(135deg, #ffb7c5 0%, #a0c4ff 50%, #b19cd9 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -25,22 +25,23 @@
             width: 100%;
             max-width: 800px;
             height: 80vh;
-            background-color: #ffffff;
+            background-color: rgba(255, 255, 255, 0.95);
             border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
             display: flex;
             flex-direction: column;
             overflow: hidden;
+            backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
         .chat-header {
-            background: linear-gradient(to right, #00b894, #00cec9);
+            background: linear-gradient(135deg, #ffb7c5 0%, #ff9eb5 100%);
             color: white;
             padding: 25px;
             text-align: center;
             border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 12px rgba(255, 158, 181, 0.3);
         }
 
         .chat-header h1 {
@@ -84,14 +85,14 @@
 
         .user {
             align-self: flex-end;
-            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            background: linear-gradient(135deg, #a0c4ff 0%, #74b9ff 100%);
             color: white;
             border-bottom-right-radius: 5px;
         }
 
         .bot {
             align-self: flex-start;
-            background: linear-gradient(135deg, #00b894, #00cec9);
+            background: linear-gradient(135deg, #ffb7c5 0%, #ff9eb5 100%);
             color: white;
             border-bottom-left-radius: 5px;
         }
@@ -107,7 +108,7 @@
         #userInput {
             flex: 1;
             padding: 15px 20px;
-            border: 2px solid #e0e0e0;
+            border: 2px solid rgba(255, 182, 193, 0.3);
             border-radius: 30px;
             outline: none;
             font-size: 16px;
@@ -116,13 +117,18 @@
         }
 
         #userInput:focus {
-            border-color: #6c5ce7;
-            box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.2);
+            border-color: #ff9eb5;
+            box-shadow: 0 0 0 3px rgba(255, 158, 181, 0.2);
             background-color: #ffffff;
         }
 
+        #userInput::placeholder {
+            color: #ff9eb5;
+            opacity: 0.7;
+        }
+
         .send-button {
-            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            background: linear-gradient(135deg, #ffb7c5 0%, #ff9eb5 100%);
             color: white;
             border: none;
             border-radius: 50%;
@@ -134,12 +140,12 @@
             justify-content: center;
             align-items: center;
             transition: all 0.3s;
-            box-shadow: 0 4px 12px rgba(108, 92, 231, 0.3);
+            box-shadow: 0 4px 12px rgba(255, 158, 181, 0.3);
         }
 
         .send-button:hover {
-            transform: scale(1.05) rotate(5deg);
-            box-shadow: 0 6px 15px rgba(108, 92, 231, 0.4);
+            transform: scale(1.05);
+            box-shadow: 0 6px 15px rgba(255, 158, 181, 0.4);
         }
 
         .send-button:active {
@@ -154,7 +160,7 @@
         .typing-indicator {
             display: none;
             align-self: flex-start;
-            background: linear-gradient(135deg, #00b894, #00cec9);
+            background: linear-gradient(135deg, #ffb7c5 0%, #ff9eb5 100%);
             color: white;
             padding: 15px 20px;
             border-radius: 20px;
@@ -200,15 +206,15 @@
         }
 
         .chatbox::-webkit-scrollbar-thumb {
-            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            background: linear-gradient(135deg, #ffb7c5, #a0c4ff);
             border-radius: 10px;
         }
 
         .chatbox::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(135deg, #5c4fd1, #8e7ff0);
+            background: linear-gradient(135deg, #ff9eb5, #74b9ff);
         }
 
-        /* Responsive design */
+        
         @media (max-width: 600px) {
             .chat-container {
                 height: 90vh;
@@ -241,14 +247,14 @@
         </div>
         <div class="chatbox" id="chatbox">
             <div class="message bot">
-                <strong>👋 Hello! I'm Persona, your personal AI assistant!</strong>
+                <strong>Hello! I'm Persona, your personal AI assistant!</strong>
                 <br><br>I can help you with:
-                <br>• 🌤️ Weather information
-                <br>• ⏰ Current time
-                <br>• ✅ Task management
-                <br>• 📰 Latest news
-                <br>• 😄 Jokes to brighten your day
-                <br>• 💬 General conversation
+                <br>• Weather information
+                <br>• Current time
+                <br>• Task management
+                <br>• Latest news
+                <br>• Jokes to brighten your day
+                <br>• General conversation
                 <br><br>Feel free to ask me anything or just say hello!
             </div>
         </div>
@@ -288,7 +294,7 @@
                 
                 if (text === "") return;
 
-                
+                // Add user message to chat
                 chatbox.innerHTML += `<div class="message user">${text}</div>`;
                 chatbox.scrollTop = chatbox.scrollHeight;
 
