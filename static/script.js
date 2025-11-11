@@ -1,51 +1,87 @@
-function sendMessage() {
-    let input = document.getElementById("userInput");
-    let chatbox = document.getElementById("chatbox");
-    let typingIndicator = document.getElementById("typingIndicator");
+console.log("Script loaded successfully");
 
-    let text = input.value.trim();
-    if (text === "") return;
-
-    // Add user message to chat
-    chatbox.innerHTML += `<div class="message user">${text}</div>`;
-    chatbox.scrollTop = chatbox.scrollHeight;
-
-    input.value = "";
+// Wait for DOM to be fully loaded
+document.addEventListener('DOMContentLoaded', function() {
+    console.log("DOM fully loaded");
     
-    // Show typing indicator
-    typingIndicator.style.display = 'block';
-    chatbox.scrollTop = chatbox.scrollHeight;
+    const input = document.getElementById("userInput");
+    const chatbox = document.getElementById("chatbox");
+    const typingIndicator = document.getElementById("typingIndicator");
+    const sendButton = document.getElementById("sendButton");
 
-    // Send request to your Flask backend
-    fetch("/webhook", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-            query: text   
-        })
-    })
-    .then(res => res.json())
-    .then(data => {
-        // Hide typing indicator
-        typingIndicator.style.display = 'none';
-        
-        let reply = data.fulfillmentText || "I didn't understand that.";
-        chatbox.innerHTML += `<div class="message bot">${reply}</div>`;
-        chatbox.scrollTop = chatbox.scrollHeight;
-    })
-    .catch(err => {
-        // Hide typing indicator
-        typingIndicator.style.display = 'none';
-        
-        chatbox.innerHTML += `<div class="message bot">Sorry, there was an error connecting to the server. Please try again later.</div>`;
-        chatbox.scrollTop = chatbox.scrollHeight;
-    });
-}
-
-// Add event listener for Enter key
-document.getElementById("userInput").addEventListener("keydown", function(e) {
-    if (e.key === "Enter") {
-        sendMessage();
+    if (!input || !chatbox || !typingIndicator || !sendButton) {
+        console.error("One or more required elements not found:", {
+            input: !!input,
+            chatbox: !!chatbox,
+            typingIndicator: !!typingIndicator,
+            sendButton: !!sendButton
+        });
+        return;
     }
-});
 
+    function sendMessage() {
+        let text = input.value.trim();
+        console.log("Sending message:", text);
+        
+        if (text === "") return;
+
+        // Add user message to chat
+        chatbox.innerHTML += `<div class="message user">${text}</div>`;
+        chatbox.scrollTop = chatbox.scrollHeight;
+
+        input.value = "";
+        
+        // Show typing indicator
+        typingIndicator.style.display = 'block';
+        chatbox.scrollTop = chatbox.scrollHeight;
+
+        // Send request to your Flask backend
+        fetch("/webhook", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                query: text   
+            })
+        })
+        .then(response => {
+            console.log("Response status:", response.status);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log("Response data:", data);
+            // Hide typing indicator
+            typingIndicator.style.display = 'none';
+            
+            let reply = data.fulfillmentText || "I didn't understand that.";
+            chatbox.innerHTML += `<div class="message bot">${reply}</div>`;
+            chatbox.scrollTop = chatbox.scrollHeight;
+        })
+        .catch(err => {
+            console.error("Fetch error:", err);
+            // Hide typing indicator
+            typingIndicator.style.display = 'none';
+            
+            chatbox.innerHTML += `<div class="message bot">Sorry, there was an error: ${err.message}</div>`;
+            chatbox.scrollTop = chatbox.scrollHeight;
+        });
+    }
+
+    // Add event listener for Enter key
+    input.addEventListener("keydown", function(e) {
+        if (e.key === "Enter") {
+            console.log("Enter key pressed");
+            sendMessage();
+        }
+    });
+
+    // Add event listener for send button
+    sendButton.addEventListener("click", function() {
+        console.log("Send button clicked");
+        sendMessage();
+    });
+
+    console.log("Event listeners attached successfully");
+});
