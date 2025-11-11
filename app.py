@@ -38,22 +38,68 @@ GREETINGS_IN = [
 ]
 
 GREETINGS_OUT = [
-    "Hello! How can I assist you today?",
-    "Hi there! What can I help you with?",
-    "Hey! Nice to see you. How can I help?",
-    "Greetings! I'm here to help with weather, time, tasks, news, and jokes!",
-    "Hello! Ready to tackle some tasks or just chat?",
-    "Hi! I'm your friendly AI assistant. What's on your mind?"
+    "Hello! I'm Persona, your personal assistant. How can I help you today?",
+    "Hi there! Persona here, ready to assist. What's on your mind?",
+    "Hey! Nice to see you. I'm Persona, your AI assistant. How can I help?",
+    "Greetings! I'm Persona, here to help with various tasks and have a chat!",
+    "Hello! I'm Persona, your friendly assistant. Ready to tackle some tasks or just chat?",
+    "Hi! Persona at your service. What can I help you with today?"
 ]
 
-# Complete HTML with embedded CSS and JavaScript
+# General conversation responses
+GENERAL_CONVERSATION = {
+    "how are you": [
+        "I'm doing great, thank you for asking! How about you?",
+        "I'm functioning perfectly! Just here waiting to help you.",
+        "I'm doing well! Ready to assist with whatever you need.",
+        "I'm excellent! Hope you're having a good day too."
+    ],
+    "what is your name": [
+        "I'm Persona, your personal AI assistant!",
+        "My name is Persona! I'm here to help you.",
+        "You can call me Persona. Nice to meet you!",
+        "I'm Persona, your digital companion and assistant."
+    ],
+    "who created you": [
+        "I was created by a developer to be your helpful AI assistant!",
+        "I'm the creation of a developer who wanted to make a useful chatbot.",
+        "I was developed to assist people like you with various tasks and conversations.",
+        "A developer built me to be your personal assistant and conversation partner."
+    ],
+    "what can you do": [
+        "I can help with weather, time, task management, news, jokes, and general conversation!",
+        "I can check weather, tell time, manage tasks, share news, tell jokes, and chat with you!",
+        "As Persona, I assist with weather info, time, tasks, news, humor, and friendly conversation.",
+        "I'm here to help with practical tasks and keep you company with conversation!"
+    ],
+    "how old are you": [
+        "I'm an AI, so I don't have an age in the traditional sense!",
+        "As an AI, I exist in digital space without a physical age.",
+        "I was recently created, so you could say I'm quite young!",
+        "Age is just a number for humans - I'm timeless and always here to help."
+    ],
+    "where are you from": [
+        "I exist in the digital world, available wherever you need me!",
+        "I live in the cloud, ready to assist you from anywhere.",
+        "I'm from the internet! My home is wherever there's a connection.",
+        "I'm a digital native, born from code and living in servers."
+    ],
+    "tell me about yourself": [
+        "I'm Persona, your AI assistant! I love helping people with tasks and having friendly conversations.",
+        "I'm Persona - a helpful AI that enjoys assisting with weather, time, tasks, news, and chats!",
+        "I'm Persona, your digital companion. I'm here to make your day easier and more enjoyable!",
+        "I'm Persona! I specialize in practical assistance and friendly conversation to help you out."
+    ]
+}
+
+# Complete HTML with new color scheme and Persona branding
 HTML = '''
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Assistant</title>
+    <title>Persona - Your AI Assistant</title>
     <style>
         * {
             margin: 0;
@@ -63,7 +109,7 @@ HTML = '''
         }
 
         body {
-            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -75,61 +121,74 @@ HTML = '''
             width: 100%;
             max-width: 800px;
             height: 80vh;
-            background-color: white;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            background-color: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
             display: flex;
             flex-direction: column;
             overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .chat-header {
-            background: linear-gradient(to right, #4a6cf7, #6a82fb);
+            background: linear-gradient(to right, #ff6b6b, #ff8e8e);
             color: white;
-            padding: 20px;
+            padding: 25px;
             text-align: center;
-            border-bottom: 1px solid #e0e0e0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
         .chat-header h1 {
-            font-size: 24px;
-            font-weight: 600;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 5px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
         }
 
         .chat-header p {
             margin-top: 5px;
             opacity: 0.9;
+            font-size: 16px;
         }
 
         .chatbox {
             flex: 1;
-            padding: 20px;
+            padding: 25px;
             overflow-y: auto;
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 20px;
+            background-color: #f8f9fa;
         }
 
         .message {
             max-width: 80%;
-            padding: 12px 18px;
-            border-radius: 18px;
+            padding: 15px 20px;
+            border-radius: 20px;
             line-height: 1.5;
             position: relative;
             word-wrap: break-word;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .user {
             align-self: flex-end;
-            background-color: #4a6cf7;
+            background: linear-gradient(135deg, #667eea, #764ba2);
             color: white;
             border-bottom-right-radius: 5px;
         }
 
         .bot {
             align-self: flex-start;
-            background-color: #f0f2f5;
-            color: #333;
+            background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+            color: white;
             border-bottom-left-radius: 5px;
         }
 
@@ -137,42 +196,50 @@ HTML = '''
             display: flex;
             padding: 20px;
             border-top: 1px solid #e0e0e0;
-            background-color: #f9f9f9;
+            background-color: #ffffff;
+            box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.05);
         }
 
         #userInput {
             flex: 1;
-            padding: 12px 18px;
-            border: 1px solid #ddd;
-            border-radius: 25px;
+            padding: 15px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 30px;
             outline: none;
             font-size: 16px;
             transition: all 0.3s;
+            background-color: #f8f9fa;
         }
 
         #userInput:focus {
-            border-color: #4a6cf7;
-            box-shadow: 0 0 0 2px rgba(74, 108, 247, 0.2);
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+            background-color: #ffffff;
         }
 
         .send-button {
-            background-color: #4a6cf7;
+            background: linear-gradient(135deg, #667eea, #764ba2);
             color: white;
             border: none;
             border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            margin-left: 10px;
+            width: 55px;
+            height: 55px;
+            margin-left: 15px;
             cursor: pointer;
             display: flex;
             justify-content: center;
             align-items: center;
             transition: all 0.3s;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
         }
 
         .send-button:hover {
-            background-color: #3a5ce5;
-            transform: scale(1.05);
+            transform: scale(1.05) rotate(5deg);
+            box-shadow: 0 6px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .send-button:active {
+            transform: scale(0.98);
         }
 
         .send-button svg {
@@ -183,12 +250,13 @@ HTML = '''
         .typing-indicator {
             display: none;
             align-self: flex-start;
-            background-color: #f0f2f5;
-            color: #666;
-            padding: 12px 18px;
-            border-radius: 18px;
+            background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 20px;
             border-bottom-left-radius: 5px;
             font-style: italic;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         .typing-dots {
@@ -219,27 +287,28 @@ HTML = '''
 
         /* Scrollbar styling */
         .chatbox::-webkit-scrollbar {
-            width: 6px;
+            width: 8px;
         }
 
         .chatbox::-webkit-scrollbar-track {
             background: #f1f1f1;
+            border-radius: 10px;
         }
 
         .chatbox::-webkit-scrollbar-thumb {
-            background: #c1c1c1;
-            border-radius: 3px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 10px;
         }
 
         .chatbox::-webkit-scrollbar-thumb:hover {
-            background: #a8a8a8;
+            background: linear-gradient(135deg, #5a6fd8, #6a4190);
         }
 
         /* Responsive design */
         @media (max-width: 600px) {
             .chat-container {
                 height: 90vh;
-                border-radius: 10px;
+                border-radius: 15px;
             }
             
             .message {
@@ -247,33 +316,51 @@ HTML = '''
             }
             
             .chat-header h1 {
-                font-size: 20px;
+                font-size: 24px;
             }
+            
+            .chat-header {
+                padding: 20px;
+            }
+            
+            .chatbox {
+                padding: 20px;
+            }
+        }
+
+        .welcome-message {
+            text-align: center;
+            padding: 10px;
+            color: #666;
+            font-size: 14px;
+            font-style: italic;
         }
     </style>
 </head>
 <body>
     <div class="chat-container">
         <div class="chat-header">
-            <h1>AI Assistant</h1>
-            <p>Ask me about weather, time, tasks, news, or jokes!</p>
+            <h1>Persona</h1>
+            <p>Your Personal AI Assistant</p>
         </div>
         <div class="chatbox" id="chatbox">
             <div class="message bot">
-                <strong>Hello! I'm your AI assistant. I can help you with:</strong>
+                <strong>👋 Hello! I'm Persona, your personal AI assistant!</strong>
+                <br><br>I can help you with:
                 <br>• 🌤️ Weather information
                 <br>• ⏰ Current time
                 <br>• ✅ Task management
                 <br>• 📰 Latest news
                 <br>• 😄 Jokes to brighten your day
-                <br><br>Try saying "hello", "tell me a joke", or ask about any of the features above!
+                <br>• 💬 General conversation
+                <br><br>Feel free to ask me anything or just say hello!
             </div>
         </div>
         <div class="typing-indicator" id="typingIndicator">
-            Assistant is typing<span class="typing-dots"><span>.</span><span>.</span><span>.</span></span>
+            Persona is thinking<span class="typing-dots"><span>.</span><span>.</span><span>.</span></span>
         </div>
         <div class="input-area">
-            <input type="text" id="userInput" placeholder="Type your message here..." autocomplete="off">
+            <input type="text" id="userInput" placeholder="Chat with Persona..." autocomplete="off">
             <button class="send-button" id="sendButton">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M3.478 2.404a.75.75 0 0 0-.926.941l2.432 7.905H13.5a.75.75 0 0 1 0 1.5H4.984l-2.432 7.905a.75.75 0 0 0 .926.94 60.519 60.519 0 0 0 18.445-8.986.75.75 0 0 0 0-1.218A60.517 60.517 0 0 0 3.478 2.404Z" />
@@ -283,7 +370,7 @@ HTML = '''
     </div>
 
     <script>
-        console.log("Chat interface loaded");
+        console.log("Persona chat interface loaded");
         
         // Wait for DOM to be fully loaded
         document.addEventListener('DOMContentLoaded', function() {
@@ -335,7 +422,7 @@ HTML = '''
                     // Hide typing indicator
                     typingIndicator.style.display = 'none';
                     
-                    let reply = data.fulfillmentText || "I didn't understand that.";
+                    let reply = data.fulfillmentText || "I'm not sure how to respond to that. Can you try asking differently?";
                     chatbox.innerHTML += `<div class="message bot">${reply}</div>`;
                     chatbox.scrollTop = chatbox.scrollHeight;
                 })
@@ -344,7 +431,7 @@ HTML = '''
                     // Hide typing indicator
                     typingIndicator.style.display = 'none';
                     
-                    chatbox.innerHTML += `<div class="message bot">Sorry, there was an error: ${err.message}</div>`;
+                    chatbox.innerHTML += `<div class="message bot">Sorry, there was an error connecting. Please try again.</div>`;
                     chatbox.scrollTop = chatbox.scrollHeight;
                 });
             }
@@ -363,7 +450,10 @@ HTML = '''
                 sendMessage();
             });
 
-            console.log("Event listeners attached successfully");
+            // Focus on input field when page loads
+            input.focus();
+
+            console.log("Persona is ready to chat!");
         });
     </script>
 </body>
@@ -386,6 +476,11 @@ def webhook():
     # Greetings
     if any(greeting in user_message for greeting in GREETINGS_IN):
         return jsonify({"fulfillmentText": random.choice(GREETINGS_OUT)})
+
+    # General conversation
+    for pattern, responses in GENERAL_CONVERSATION.items():
+        if pattern in user_message:
+            return jsonify({"fulfillmentText": random.choice(responses)})
 
     # Jokes
     if "joke" in user_message or "funny" in user_message or "make me laugh" in user_message:
@@ -484,13 +579,13 @@ def webhook():
         ]
         return jsonify({"fulfillmentText": random.choice(thanks_responses)})
 
-    # Fallback
+    # Fallback - more conversational
     fallback_responses = [
-        "I'm here to help with weather, time, tasks, news, and jokes! What would you like to know?",
-        "I can tell you the weather, current time, help manage tasks, share news, or tell a joke. What would you like?",
-        "Sorry, I didn't understand that. I can help with: weather, time, tasks, news, or tell you a joke!",
-        "I'm not sure I follow. Try asking about weather, time, tasks, news, or ask for a joke!",
-        "Let me help you! I can check weather, tell time, manage tasks, share news, or brighten your day with a joke!"
+        "I'm Persona, your personal assistant! I can help with weather, time, tasks, news, jokes, or just chat.",
+        "That's interesting! As Persona, I specialize in practical help and friendly conversation.",
+        "I'm not quite sure about that, but I'd love to help with something else!",
+        "Hmm, I'm still learning! Maybe try asking about weather, time, tasks, news, or tell me about yourself?",
+        "I'm Persona, here to make your day better! How can I assist you right now?"
     ]
     return jsonify({"fulfillmentText": random.choice(fallback_responses)})
 
