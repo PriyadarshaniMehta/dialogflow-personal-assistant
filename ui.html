@@ -22,15 +22,22 @@
         }
 
         .chat-header {
-            background: linear-gradient(135deg, rgba(255, 183, 197, 0.9) 0%, rgba(255, 158, 181, 0.9) 100%);
+            background: linear-gradient(135deg, rgba(255, 183, 197, 0.95) 0%, rgba(255, 158, 181, 0.95) 100%);
             color: white;
             padding: 20px 25px;
             text-align: center;
             border-bottom: 1px solid rgba(255, 255, 255, 0.3);
             box-shadow: 0 4px 20px rgba(255, 158, 181, 0.4);
             backdrop-filter: blur(10px);
-            position: relative;
-            z-index: 10;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .header-content {
@@ -49,8 +56,8 @@
         }
 
         .sakura-robot-logo {
-            width: 60px;
-            height: 60px;
+            width: 70px;
+            height: 70px;
             position: relative;
             display: flex;
             align-items: center;
@@ -58,10 +65,10 @@
         }
 
         .robot-face {
-            width: 45px;
-            height: 45px;
+            width: 50px;
+            height: 50px;
             background: linear-gradient(135deg, #e0e0e0, #f5f5f5);
-            border-radius: 10px;
+            border-radius: 12px;
             position: relative;
             box-shadow: 
                 0 4px 8px rgba(0, 0, 0, 0.2),
@@ -72,7 +79,7 @@
 
         .robot-eyes {
             position: absolute;
-            top: 12px;
+            top: 15px;
             left: 0;
             right: 0;
             display: flex;
@@ -80,8 +87,8 @@
         }
 
         .eye {
-            width: 6px;
-            height: 6px;
+            width: 8px;
+            height: 8px;
             background: #4a90e2;
             border-radius: 50%;
             box-shadow: 0 0 4px #4a90e2;
@@ -95,11 +102,11 @@
 
         .robot-mouth {
             position: absolute;
-            bottom: 10px;
+            bottom: 12px;
             left: 50%;
             transform: translateX(-50%);
-            width: 16px;
-            height: 3px;
+            width: 20px;
+            height: 4px;
             background: #666;
             border-radius: 2px;
         }
@@ -115,9 +122,9 @@
 
         .petal {
             position: absolute;
-            width: 10px;
-            height: 10px;
-            background: #ffb7c5;
+            width: 12px;
+            height: 12px;
+            background: #e6e6fa; /* Lavender color */
             border-radius: 50% 0 50% 50%;
             transform: rotate(45deg);
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -127,11 +134,15 @@
         .petal:nth-child(2) { top: 50%; right: 0; transform: translateY(-50%) rotate(135deg); }
         .petal:nth-child(3) { bottom: 0; left: 50%; transform: translateX(-50%) rotate(225deg); }
         .petal:nth-child(4) { top: 50%; left: 0; transform: translateY(-50%) rotate(315deg); }
+        .petal:nth-child(5) { top: 15%; right: 15%; transform: rotate(90deg); }
+        .petal:nth-child(6) { bottom: 15%; right: 15%; transform: rotate(180deg); }
+        .petal:nth-child(7) { bottom: 15%; left: 15%; transform: rotate(270deg); }
+        .petal:nth-child(8) { top: 15%; left: 15%; transform: rotate(0deg); }
 
         .logo-text {
-            font-size: 11px;
+            font-size: 12px;
             font-weight: 700;
-            margin-top: 6px;
+            margin-top: 8px;
             color: rgba(255, 255, 255, 0.9);
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
             letter-spacing: 0.5px;
@@ -142,9 +153,9 @@
         }
 
         .header-text h1 {
-            font-size: 38px;
+            font-size: 42px;
             font-weight: 900;
-            margin-bottom: 4px;
+            margin-bottom: 5px;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
             letter-spacing: 1px;
             background: linear-gradient(135deg, #ffffff, #ffe6ee);
@@ -155,26 +166,35 @@
 
         .header-text p {
             opacity: 0.9;
-            font-size: 16px;
+            font-size: 18px;
             font-weight: 600;
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
         }
 
-        .chat-interface {
+        .main-container {
             flex: 1;
             display: flex;
             flex-direction: column;
-            padding: 0 20px 20px;
+            margin-top: 120px; 
+            height: calc(100vh - 120px);
+            overflow: hidden;
+        }
+
+        .chat-window {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
             max-width: 1200px;
             margin: 0 auto;
             width: 100%;
-            position: relative;
-            z-index: 1;
+            padding: 0 20px;
+            height: 100%;
+            overflow: hidden;
         }
 
         .chatbox {
             flex: 1;
-            padding: 25px 0;
+            padding: 20px 0;
             overflow-y: auto;
             display: flex;
             flex-direction: column;
@@ -224,6 +244,7 @@
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.3);
+            margin-bottom: 20px;
         }
 
         #userInput {
@@ -319,9 +340,8 @@
             }
         }
 
-        
         .chatbox::-webkit-scrollbar {
-            width: 6px;
+            width: 8px;
         }
 
         .chatbox::-webkit-scrollbar-track {
@@ -338,9 +358,16 @@
             background: linear-gradient(135deg, rgba(255, 158, 181, 0.8), rgba(116, 185, 255, 0.8));
         }
 
+        /* Responsive design */
         @media (max-width: 768px) {
             .chat-header {
                 padding: 15px 20px;
+                height: 100px;
+            }
+            
+            .main-container {
+                margin-top: 100px;
+                height: calc(100vh - 100px);
             }
             
             .header-content {
@@ -352,13 +379,13 @@
             }
             
             .sakura-robot-logo {
-                width: 50px;
-                height: 50px;
+                width: 60px;
+                height: 60px;
             }
             
             .robot-face {
-                width: 40px;
-                height: 40px;
+                width: 45px;
+                height: 45px;
             }
             
             .message {
@@ -379,18 +406,37 @@
                 margin-right: 15%;
             }
             
-            .chat-interface {
-                padding: 0 15px 15px;
+            .chat-window {
+                padding: 0 15px;
             }
         }
 
         @media (max-width: 480px) {
+            .chat-header {
+                height: 90px;
+            }
+            
+            .main-container {
+                margin-top: 90px;
+                height: calc(100vh - 90px);
+            }
+            
             .header-text h1 {
                 font-size: 28px;
             }
             
             .header-text p {
                 font-size: 14px;
+            }
+            
+            .sakura-robot-logo {
+                width: 50px;
+                height: 50px;
+            }
+            
+            .robot-face {
+                width: 40px;
+                height: 40px;
             }
             
             .message {
@@ -437,7 +483,7 @@
             z-index: 0;
         }
 
-        .chat-interface, .chat-header {
+        .main-container, .chat-header {
             position: relative;
             z-index: 1;
         }
@@ -460,6 +506,10 @@
                         <div class="petal"></div>
                         <div class="petal"></div>
                         <div class="petal"></div>
+                        <div class="petal"></div>
+                        <div class="petal"></div>
+                        <div class="petal"></div>
+                        <div class="petal"></div>
                     </div>
                 </div>
                 <div class="logo-text">AI</div>
@@ -471,32 +521,65 @@
         </div>
     </div>
 
-    <div class="chat-interface">
-        <div class="chatbox" id="chatbox">
-            <div class="message bot">
-                <strong>Hello! I'm Persona, your personal AI assistant!</strong>
-                <br><br>I can help you with:
-                <div class="capability-list">
-                    <div>🌤️ Weather information</div>
-                    <div>⏰ Current time</div>
-                    <div>✅ Task management</div>
-                    <div>📰 Latest news</div>
-                    <div>😂 Jokes to brighten your day</div>
-                    <div>💬 General conversation</div>
+    <div class="main-container">
+        <div class="chat-window">
+            <div class="chatbox" id="chatbox">
+                <div class="message bot">
+                    <strong>Hello! I'm Persona, your personal AI assistant!</strong>
+                    <br><br>I can help you with:
+                    <div class="capability-list">
+                        <div>🌤️ Weather information</div>
+                        <div>⏰ Current time</div>
+                        <div>✅ Task management</div>
+                        <div>📰 Latest news</div>
+                        <div>😂 Jokes to brighten your day</div>
+                        <div>💬 General conversation</div>
+                    </div>
+                    <br>Feel free to ask me anything or just say hello!
                 </div>
-                <br>Feel free to ask me anything or just say hello!
+               
+                <div class="message user">
+                    Hi Persona! Can you tell me about yourself?
+                </div>
+                <div class="message bot">
+                    I'm Persona, your AI assistant! I was created to help you with various tasks like checking weather, managing tasks, telling jokes, and much more. I'm here to make your day easier and more enjoyable!
+                </div>
+                <div class="message user">
+                    That sounds great! What's the weather like today?
+                </div>
+                <div class="message bot">
+                    Let me check the current weather for you. The current temperature is 22°C with wind speed 15 km/h. It's a beautiful day outside!
+                </div>
+                <div class="message user">
+                    Can you tell me a joke?
+                </div>
+                <div class="message bot">
+                    Why don't scientists trust atoms? Because they make up everything!
+                </div>
+                <div class="message user">
+                    What time is it?
+                </div>
+                <div class="message bot">
+                    The current time is 2:30 PM. Perfect time for a coffee break!
+                </div>
+                <div class="message user">
+                    Can you help me add a task to my list?
+                </div>
+                <div class="message bot">
+                    Sure! Just tell me what task you'd like to add and I'll remember it for you.
+                </div>
             </div>
-        </div>
-        <div class="typing-indicator" id="typingIndicator">
-            Persona is thinking<span class="typing-dots"><span>.</span><span>.</span><span>.</span></span>
-        </div>
-        <div class="input-area">
-            <input type="text" id="userInput" placeholder="Chat with Persona..." autocomplete="off">
-            <button class="send-button" id="sendButton">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M3.478 2.404a.75.75 0 0 0-.926.941l2.432 7.905H13.5a.75.75 0 0 1 0 1.5H4.984l-2.432 7.905a.75.75 0 0 0 .926.94 60.519 60.519 0 0 0 18.445-8.986.75.75 0 0 0 0-1.218A60.517 60.517 0 0 0 3.478 2.404Z" />
-                </svg>
-            </button>
+            <div class="typing-indicator" id="typingIndicator">
+                Persona is thinking<span class="typing-dots"><span>.</span><span>.</span><span>.</span></span>
+            </div>
+            <div class="input-area">
+                <input type="text" id="userInput" placeholder="Chat with Persona..." autocomplete="off">
+                <button class="send-button" id="sendButton">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M3.478 2.404a.75.75 0 0 0-.926.941l2.432 7.905H13.5a.75.75 0 0 1 0 1.5H4.984l-2.432 7.905a.75.75 0 0 0 .926.94 60.519 60.519 0 0 0 18.445-8.986.75.75 0 0 0 0-1.218A60.517 60.517 0 0 0 3.478 2.404Z" />
+                    </svg>
+                </button>
+            </div>
         </div>
     </div>
 
@@ -517,23 +600,25 @@
                 return;
             }
 
+           
+            chatbox.scrollTop = chatbox.scrollHeight;
+
             function sendMessage() {
                 let text = input.value.trim();
                 console.log("Sending message:", text);
                 
                 if (text === "") return;
 
-                
+               
                 chatbox.innerHTML += `<div class="message user">${text}</div>`;
                 chatbox.scrollTop = chatbox.scrollHeight;
 
                 input.value = "";
                 
-                
+             
                 typingIndicator.style.display = 'block';
                 chatbox.scrollTop = chatbox.scrollHeight;
 
-            
                 fetch("/webhook", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
@@ -559,7 +644,7 @@
                 })
                 .catch(err => {
                     console.error("Fetch error:", err);
-                    
+                   
                     typingIndicator.style.display = 'none';
                     
                     chatbox.innerHTML += `<div class="message bot">Sorry, there was an error connecting. Please try again.</div>`;
@@ -567,7 +652,7 @@
                 });
             }
 
-           
+          
             input.addEventListener("keydown", function(e) {
                 if (e.key === "Enter") {
                     console.log("Enter key pressed");
@@ -575,13 +660,12 @@
                 }
             });
 
-            
             sendButton.addEventListener("click", function() {
                 console.log("Send button clicked");
                 sendMessage();
             });
 
-            
+          
             input.focus();
 
             console.log("Persona is ready to chat!");
