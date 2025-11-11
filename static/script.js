@@ -16,8 +16,8 @@ function sendMessage() {
     typingIndicator.style.display = 'block';
     chatbox.scrollTop = chatbox.scrollHeight;
 
-    // Send request to server
-    fetch("https://dialogflow-personal-assistant.onrender.com/webhook", {
+    // Send request to your Flask backend
+    fetch("/webhook", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
