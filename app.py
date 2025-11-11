@@ -1,22 +1,19 @@
 import os
 import requests
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from datetime import datetime
 import pytz
-
 from flask_cors import CORS
 
-app = Flask(__name__, template_folder='templates', static_folder='static')
-CORS(app)
+app = Flask(__name__)
+CORS(app)  
 
 TASKS = []
 NEWSDATA_API_KEY = os.getenv("NEWSDATA_API_KEY")
 
-
-@app.route("/", methods=["GET"])
-def home():
-    return "Webhook is running!"
-
+@app.route('/')
+def index():
+    return render_template('index.html')
 
 @app.route("/webhook", methods=["POST"])
 def webhook():
@@ -27,7 +24,7 @@ def webhook():
         or data.get("queryResult", {}).get("queryText", "").lower()
     )
 
-    #  Weather
+    # Weather
     if "weather" in user_message or "temperature" in user_message:
         try:
             url = "https://api.open-meteo.com/v1/forecast?latitude=28.625&longitude=77.25&current_weather=true"
@@ -42,8 +39,7 @@ def webhook():
         except Exception as e:
             return jsonify({"fulfillmentText": f"Weather API error: {str(e)}"})
 
-
-    #  Time
+    # Time
     if "time" in user_message or "clock" in user_message:
         try:
             ist = pytz.timezone("Asia/Kolkata")
@@ -52,7 +48,6 @@ def webhook():
 
         except Exception as e:
             return jsonify({"fulfillmentText": f"Time error: {str(e)}"})
-
 
     # Task Creation
     if "add task" in user_message or "create task" in user_message or "remind me" in user_message:
@@ -65,8 +60,7 @@ def webhook():
         TASKS.append({"task": task_text})
         return jsonify({"fulfillmentText": f"Task added: {task_text}"})
 
-
-    #  Task List
+    # Task List
     if "list tasks" in user_message or "show tasks" in user_message:
         if not TASKS:
             return jsonify({"fulfillmentText": "You have no tasks."})
@@ -77,7 +71,6 @@ def webhook():
 
         return jsonify({"fulfillmentText": reply})
 
-
     # Task Delete
     if "delete task" in user_message:
         try:
@@ -87,8 +80,7 @@ def webhook():
         except:
             return jsonify({"fulfillmentText": "Invalid task number to delete."})
 
-
-    #  News
+    # News
     if "news" in user_message:
         try:
             url = f"https://newsdata.io/api/1/news?apikey={NEWSDATA_API_KEY}"
@@ -103,11 +95,9 @@ def webhook():
         except Exception as e:
             return jsonify({"fulfillmentText": f"News error: {str(e)}"})
 
-
-    #  Fallback
+    # Fallback
     return jsonify({"fulfillmentText": "I'm here to help!"})
 
-
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+    app.run(host="0.0.0.0", port=5000, debug=True)
 
