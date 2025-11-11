@@ -6,7 +6,7 @@
 }
 
 body {
-    background: linear-gradient(135deg, #ee8bdb, #a777e3);
+    background: linear-gradient(135deg, #6e8efb, #a777e3);
     min-height: 100vh;
     display: flex;
     justify-content: center;
@@ -27,7 +27,7 @@ body {
 }
 
 .chat-header {
-    background: linear-gradient(to right, #4ac0f7, #46d9db);
+    background: linear-gradient(to right, #4a6cf7, #6a82fb);
     color: white;
     padding: 20px;
     text-align: center;
