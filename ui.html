@@ -45,16 +45,18 @@
         }
 
         .chat-header h1 {
-            font-size: 28px;
-            font-weight: 700;
-            margin-bottom: 5px;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+            font-size: 42px;
+            font-weight: 900;
+            margin-bottom: 8px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            letter-spacing: 1px;
         }
 
         .chat-header p {
             margin-top: 5px;
             opacity: 0.9;
-            font-size: 16px;
+            font-size: 18px;
+            font-weight: 600;
         }
 
         .chatbox {
@@ -195,7 +197,7 @@
             }
         }
 
-        /* Scrollbar styling */
+        
         .chatbox::-webkit-scrollbar {
             width: 8px;
         }
@@ -214,7 +216,7 @@
             background: linear-gradient(135deg, #ff9eb5, #74b9ff);
         }
 
-        
+        /* Responsive design */
         @media (max-width: 600px) {
             .chat-container {
                 height: 90vh;
@@ -226,7 +228,7 @@
             }
             
             .chat-header h1 {
-                font-size: 24px;
+                font-size: 36px;
             }
             
             .chat-header {
@@ -237,25 +239,36 @@
                 padding: 20px;
             }
         }
+
+        .capability-list {
+            line-height: 1.8;
+            margin: 10px 0;
+        }
+
+        .capability-list div {
+            margin: 5px 0;
+        }
     </style>
 </head>
 <body>
     <div class="chat-container">
         <div class="chat-header">
-            <h1>Persona</h1>
+            <h1>PERSONA</h1>
             <p>Your Personal AI Assistant</p>
         </div>
         <div class="chatbox" id="chatbox">
             <div class="message bot">
                 <strong>Hello! I'm Persona, your personal AI assistant!</strong>
                 <br><br>I can help you with:
-                <br>• Weather information
-                <br>• Current time
-                <br>• Task management
-                <br>• Latest news
-                <br>• Jokes to brighten your day
-                <br>• General conversation
-                <br><br>Feel free to ask me anything or just say hello!
+                <div class="capability-list">
+                    <div>🌤️ Weather information</div>
+                    <div>⏰ Current time</div>
+                    <div>✅ Task management</div>
+                    <div>📰 Latest news</div>
+                    <div>😂 Jokes to brighten your day</div>
+                    <div>💬 General conversation</div>
+                </div>
+                <br>Feel free to ask me anything or just say hello!
             </div>
         </div>
         <div class="typing-indicator" id="typingIndicator">
@@ -294,7 +307,7 @@
                 
                 if (text === "") return;
 
-                // Add user message to chat
+                
                 chatbox.innerHTML += `<div class="message user">${text}</div>`;
                 chatbox.scrollTop = chatbox.scrollHeight;
 
@@ -330,7 +343,7 @@
                 })
                 .catch(err => {
                     console.error("Fetch error:", err);
-                    
+                   
                     typingIndicator.style.display = 'none';
                     
                     chatbox.innerHTML += `<div class="message bot">Sorry, there was an error connecting. Please try again.</div>`;
@@ -346,7 +359,7 @@
                 }
             });
 
-            
+           
             sendButton.addEventListener("click", function() {
                 console.log("Send button clicked");
                 sendMessage();
