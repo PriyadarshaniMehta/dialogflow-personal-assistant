@@ -1,12 +1,12 @@
 import os
 import requests
 import random
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify, render_template, send_from_directory
 from datetime import datetime
 import pytz
 from flask_cors import CORS
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static', template_folder='templates')
 CORS(app)
 
 TASKS = []
@@ -49,6 +49,33 @@ GREETINGS_OUT = [
 @app.route('/')
 def index():
     return render_template('index.html')
+
+@app.route('/debug-static')
+def debug_static():
+    import os
+    result = []
+    result.append("Current directory: " + os.getcwd())
+    result.append("Files in current directory: " + str(os.listdir('.')))
+    
+    if os.path.exists('static'):
+        result.append("Static directory exists")
+        result.append("Files in static: " + str(os.listdir('static')))
+        if os.path.exists('static/css'):
+            result.append("CSS directory exists")
+            result.append("CSS files: " + str(os.listdir('static/css')))
+        if os.path.exists('static/js'):
+            result.append("JS directory exists")
+            result.append("JS files: " + str(os.listdir('static/js')))
+    else:
+        result.append("Static directory does NOT exist")
+        
+    if os.path.exists('templates'):
+        result.append("Templates directory exists")
+        result.append("Template files: " + str(os.listdir('templates')))
+    else:
+        result.append("Templates directory does NOT exist")
+        
+    return "<br>".join(result)
 
 @app.route("/webhook", methods=["POST"])
 def webhook():
