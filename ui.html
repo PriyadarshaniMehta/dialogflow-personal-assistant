@@ -95,14 +95,14 @@
             position: absolute;
             width: 25px;
             height: 25px;
-            background: #e6e6fa; /* Lavender color */
+            background: #e6e6fa; 
             border-radius: 50% 0 50% 50%;
             transform-origin: center;
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
             border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
-        /* Position 5 petals in a circle */
+      
         .petal:nth-child(1) { 
             top: 5px; 
             left: 22.5px; 
@@ -162,7 +162,7 @@
         }
 
         .main-content {
-            margin-top: 100px; /* Same as header height */
+            margin-top: 100px; 
             height: calc(100vh - 100px);
             display: flex;
             flex-direction: column;
@@ -333,7 +333,7 @@
             }
         }
 
-        
+    
         .chat-messages::-webkit-scrollbar {
             width: 6px;
         }
@@ -353,7 +353,7 @@
             background: linear-gradient(135deg, rgba(255, 158, 181, 0.8), rgba(116, 185, 255, 0.8));
         }
 
-        /* Responsive design */
+   
         @media (max-width: 768px) {
             .chat-header {
                 padding: 12px 20px;
@@ -471,14 +471,13 @@
             margin: 4px 0;
         }
 
-        
         .chat-messages {
             scroll-behavior: smooth;
         }
     </style>
 </head>
 <body>
-    <!-- Fixed Header -->
+
     <div class="chat-header">
         <div class="header-content">
             <div class="logo-container">
@@ -501,7 +500,6 @@
         </div>
     </div>
 
-    
     <div class="main-content">
         <div class="chat-container">
             <div class="chat-messages" id="chatbox">
@@ -538,7 +536,6 @@
     <script>
         console.log("Persona chat interface loaded");
 
-        
         document.addEventListener('DOMContentLoaded', function() {
             console.log("DOM fully loaded");
             
@@ -552,7 +549,6 @@
                 return;
             }
 
-           
             setTimeout(() => {
                 chatbox.scrollTop = chatbox.scrollHeight;
             }, 100);
@@ -569,15 +565,14 @@
                 userMessage.textContent = text;
                 chatbox.appendChild(userMessage);
                 
-                
+               
                 input.value = "";
                 chatbox.scrollTop = chatbox.scrollHeight;
-                
                 
                 typingIndicator.style.display = 'block';
                 chatbox.scrollTop = chatbox.scrollHeight;
 
-                
+               
                 fetch("/webhook", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
@@ -594,7 +589,7 @@
                 })
                 .then(data => {
                     console.log("Response data:", data);
-                    // Hide typing indicator
+                   
                     typingIndicator.style.display = 'none';
                     
                     const botMessage = document.createElement('div');
@@ -606,7 +601,7 @@
                 })
                 .catch(err => {
                     console.error("Fetch error:", err);
-                    // Hide typing indicator
+    
                     typingIndicator.style.display = 'none';
                     
                     const errorMessage = document.createElement('div');
@@ -618,7 +613,7 @@
                 });
             }
 
-            // Add event listener for Enter key
+           
             input.addEventListener("keydown", function(e) {
                 if (e.key === "Enter") {
                     console.log("Enter key pressed");
@@ -626,13 +621,12 @@
                 }
             });
 
-            // Add event listener for send button
+         
             sendButton.addEventListener("click", function() {
                 console.log("Send button clicked");
                 sendMessage();
             });
 
-            // Focus on input field when page loads
             input.focus();
 
             console.log("Persona is ready to chat!");
