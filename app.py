@@ -12,7 +12,7 @@ CORS(app)
 TASKS = []
 NEWSDATA_API_KEY = os.getenv("NEWSDATA_API_KEY")
 
-# Jokes database
+
 JOKES = [
     "Why don't scientists trust atoms? Because they make up everything!",
     "Why did the scarecrow win an award? He was outstanding in his field!",
@@ -31,7 +31,7 @@ JOKES = [
     "Why do Python developers prefer snakes? Because they're afraid of commitment issues!"
 ]
 
-# Greeting patterns
+
 GREETINGS_IN = [
     "hello", "hi", "hey", "good morning", "good afternoon", "good evening",
     "howdy", "greetings", "what's up", "yo", "hi there", "hello there"
@@ -46,7 +46,6 @@ GREETINGS_OUT = [
     "Hi! Persona at your service. What can I help you with today?"
 ]
 
-# General conversation responses
 GENERAL_CONVERSATION = {
     "how are you": [
         "I'm doing great, thank you for asking! How about you?",
@@ -105,16 +104,16 @@ def webhook():
         or data.get("queryResult", {}).get("queryText", "").lower()
     )
 
-    # Greetings
+    
     if any(greeting in user_message for greeting in GREETINGS_IN):
         return jsonify({"fulfillmentText": random.choice(GREETINGS_OUT)})
 
-    # General conversation
+   
     for pattern, responses in GENERAL_CONVERSATION.items():
         if pattern in user_message:
             return jsonify({"fulfillmentText": random.choice(responses)})
 
-    # Jokes
+    
     if "joke" in user_message or "funny" in user_message or "make me laugh" in user_message:
         return jsonify({"fulfillmentText": random.choice(JOKES)})
 
@@ -133,7 +132,7 @@ def webhook():
         except Exception as e:
             return jsonify({"fulfillmentText": f"Weather API error: {str(e)}"})
 
-    # Time
+    
     if "time" in user_message or "clock" in user_message:
         try:
             ist = pytz.timezone("Asia/Kolkata")
@@ -143,7 +142,7 @@ def webhook():
         except Exception as e:
             return jsonify({"fulfillmentText": f"Time error: {str(e)}"})
 
-    # Task Creation
+    
     if "add task" in user_message or "create task" in user_message or "remind me" in user_message:
         task_text = (
             user_message.replace("add task", "")
@@ -154,7 +153,7 @@ def webhook():
         TASKS.append({"task": task_text})
         return jsonify({"fulfillmentText": f"Task added: {task_text}"})
 
-    # Task List
+    
     if "list tasks" in user_message or "show tasks" in user_message:
         if not TASKS:
             return jsonify({"fulfillmentText": "You have no tasks."})
@@ -165,7 +164,7 @@ def webhook():
 
         return jsonify({"fulfillmentText": reply})
 
-    # Task Delete
+    
     if "delete task" in user_message:
         try:
             num = int(user_message.split()[-1])
@@ -174,7 +173,7 @@ def webhook():
         except:
             return jsonify({"fulfillmentText": "Invalid task number to delete."})
 
-    # News
+    
     if "news" in user_message:
         try:
             url = f"https://newsdata.io/api/1/news?apikey={NEWSDATA_API_KEY}"
@@ -189,7 +188,7 @@ def webhook():
         except Exception as e:
             return jsonify({"fulfillmentText": f"News error: {str(e)}"})
 
-    # Farewell
+    
     if any(word in user_message for word in ["bye", "goodbye", "see you", "farewell", "quit", "exit"]):
         farewells = [
             "Goodbye! Have a great day!",
@@ -200,7 +199,7 @@ def webhook():
         ]
         return jsonify({"fulfillmentText": random.choice(farewells)})
 
-    # Thank you responses
+    
     if any(word in user_message for word in ["thank", "thanks", "appreciate"]):
         thanks_responses = [
             "You're welcome! Happy to help!",
@@ -211,7 +210,7 @@ def webhook():
         ]
         return jsonify({"fulfillmentText": random.choice(thanks_responses)})
 
-    # Fallback - more conversational
+    
     fallback_responses = [
         "I'm Persona, your personal assistant! I can help with weather, time, tasks, news, jokes, or just chat.",
         "That's interesting! As Persona, I specialize in practical help and friendly conversation.",
